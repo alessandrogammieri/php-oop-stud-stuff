@@ -30,7 +30,7 @@
     
     class Studente extends Persona {
         public $study;
-        public $tax;
+        private $tax;
 
         public function __construct($name, $lastname, $address, $study, $tax) {
             parent::__construct($name, $lastname, $address);
@@ -38,14 +38,23 @@
             $this -> tax = $tax;
         }
 
+        public function getTax() {
+            return $this -> tax;
+        }
+        public function setTax($tax) {
+            if ($tax > 0) {
+                $this -> tax = $tax;
+            }
+        }
+
         public function toString() {
-            return parent::toString() . "Programma di studi: " . $this -> study . "<br>" . "Importo tasse: " . $this -> tax . "<br>";
+            return parent::toString() . "Programma di studi: " . $this -> study . "<br>" . "Importo tasse: € " . $this -> tax . "<br>";
         }
     }
 
     class Prof extends Persona {
         public $matter;
-        public $pay;
+        private $pay;
 
         public function __construct($name, $lastname, $address, $matter, $pay) {
             parent::__construct($name, $lastname, $address);
@@ -53,14 +62,26 @@
             $this -> pay = $pay;
         }
 
+        public function getPay() {
+            return $this -> pay;
+        }
+        public function setPay($pay) {
+            if ($pay > 0) {
+                $this -> pay = $pay;
+            }
+        }
+
         public function toString() {
-            return parent::toString() . "Materia: " . $this -> matter . "<br>" . "Paga mensile: " . $this -> pay . "<br>";
+            return parent::toString() . "Materia: " . $this -> matter . "<br>" . "Paga mensile: € " . $this -> pay . "<br>";
         }
     }
 
     $persona = new Persona("Mario", "Rossi", "Via Roma 25 - Campobasso");
-    $studente = new Studente("Luca", "Bianchi", "Via Pio IX 67 - Milano", "Giurisprudenza", "euro 2.000");
-    $prof = new Prof("Paolo", "Verdi", "Viale Libia 67 - Roma", "Fisica", "euro 2.500");
+    $studente = new Studente("Luca", "Bianchi", "Via Pio IX 67 - Milano", "Giurisprudenza", 2000);
+    $prof = new Prof("Paolo", "Verdi", "Viale Libia 67 - Roma", "Fisica", 2500);
+
+    $studente -> setTax(1000);
+    $prof -> setPay(0);
 
     echo "PERSONA" . "<br>" . $persona -> toString() . "<br>";
     echo "STUDENTE" . "<br>" . $studente -> toString() . "<br>";
